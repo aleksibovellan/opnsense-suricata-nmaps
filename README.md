@@ -2,7 +2,7 @@
 # OPNsense's Suricata IDS/IPS Detection Rules Against Nmap Scans
 v. 1.1 / June 6th 2023 by Aleksi Bovellan
 
-Because there weren't many working alerts against Nmap scans built in OPNSense, or even in Suricata's ET Telemetry Pro ruleset, especially against different types of Nmap scans, I wrote a bundle of my own Suricata rules. These rules react to Nmap scan speeds between -T5-T1, and to fragmented Nmap scans too, but without creating too many false alerts, at least in a personal / home / SoHo network setup. Slower Nmap scan detections take more time to trigger, since the packet rate gets so slow.
+Because there weren't many working alerts against Nmap scans built in OPNSense, or even in Suricata's ET Telemetry Pro ruleset, especially against different types of Nmap scans, I wrote a bundle of my own Suricata rules. These rules react to Nmap scan speeds between -T5-T1, and to fragmented Nmap scans too, but without creating too many false alerts, at least in a personal / home / SoHo network setup. Expect to see fresh alerts triggered from WAN interface as a result of everyday scanning and probing. (Detecting the slowest Nmap scans take more time, since the packet rates get so slow.)
 
 Included:
 
@@ -10,7 +10,7 @@ Included:
 - 3 x Suricata rules to detect most Nmap scans WITH more specific, common, or known port targets or ranges. (Scan types include at least: -Pn, -sS, -sT, -sU, -A, -f)
 - 4 x Suricata rules against any connection attempts to/from port 4444 TCP/UDP (MetaSploit / MeterPreter / NetCat)
 
-(By the way, if you are running both OPNSense/Suricata and CrowdSec at the same time, CrowdSec bans source IP addresses running Nmap scan speeds down to -T2, but not to for -T1-T0. You can always whitelist your own attacking IP address for testing purposes. CrowdSec also ignores fragmented Nmap scans.)
+(If running both OPNSense/Suricata and CrowdSec at the same time, CrowdSec bans source IP addresses running Nmap scan speeds down to -T2, but not to for -T1-T0. You can always whitelist your own attacking IP address for testing purposes. CrowdSec also ignores fragmented Nmap scans.)
 
 # NMAP EXAMPLES USING:   Nmap 7.9+ / Kali Linux 2023+	  VS.   OPNsense 23.1+  /  Suricata 6.0+  /  CrowdSec 1.5+  /  FreeBSD 13.1+
 
