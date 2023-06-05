@@ -7,7 +7,7 @@ Because there weren't too many triggers against Nmap scans built in OPNSense, or
 - 3 x Suricata rules to detect most Nmap scans WITHOUT port ranges. (Scan types include at least: -Pn, -sS, -sT, -sU, -A, -f)
 - 3 x Suricata rules to detect most Nmap scans WITH more specific, common, or known port targets or ranges. (Scan types include at least: -Pn, -sS, -sT, -sU, -A, -f)
 - Detected Nmap scan speeds: between modes -T5-T0. (Slowest Nmap scan detections take more time)
-- Tested with no false alarms in personal / home / SoHo network environments
+- Designed for personal / home / SoHo network environments
 
 
 (If running both OPNSense/Suricata and CrowdSec, CrowdSec bans source IP addresses for Nmap scan speeds down to -T2, but not to -T1-T0. CrowdSec also ignores fragmented Nmap scans.)
