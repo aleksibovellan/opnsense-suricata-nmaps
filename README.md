@@ -13,28 +13,26 @@ Because there weren't too many triggers against Nmap scans built-in OPNSense, or
 (If running both OPNSense/Suricata and CrowdSec, CrowdSec bans source IP addresses for Nmap scan speeds down to -T2, but not to -T1-T0. CrowdSec also ignores fragmented Nmap scans.)
 
 
-NMAP EXAMPLES USING:   Nmap 7.9+ / Kali Linux 2023+	  VS.   OPNsense 23.1+  /  Suricata 6.0+  /  CrowdSec 1.5+  /  FreeBSD 13.1+
+# NMAP EXAMPLES USING:   Nmap 7.9+ / Kali Linux 2023+	  VS.   OPNsense 23.1+  /  Suricata 6.0+  /  CrowdSec 1.5+  /  FreeBSD 13.1+
 
-- nmap -Pn -sS -T1     ->     DETECTED BY SURICATA
-- nmap -Pn -sS -f -T1     ->     DETECTED BY SURICATA
-- nmap -Pn -sT -T1     ->     DETECTED BY SURICATA
-- nmap -sT -f -T1     ->     DETECTED BY SURICATA
-- nmap -Pn -sU -T1     ->     DETECTED BY SURICATA
-- nmap -sU -f -T1     ->     DETECTED BY SURICATA
-- nmap -Pn -sS -p 20-140 -T1     ->     DETECTED BY SURICATA
-- nmap -Pn -sS -p 20-140 -f -T1     ->     DETECTED BY SURICATA
-- nmap -Pn -sT -p 20-140 -T1     ->     DETECTED BY SURICATA
-- nmap -sT -p 20-140 -f -T1     ->     DETECTED BY SURICATA
-- nmap -Pn -sU -p 20-140 -T1     ->     DETECTED BY SURICATA
-- nmap -sU -p 20-140 -f -T1     ->     DETECTED BY SURICATA
-- nmap -Pn -sS -p 21,22,23,69,80,138,139,140 -T1     ->     DETECTED BY SURICATA
-- nmap -Pn -sS -p 21,22,23,69,80,138,139,140 -f -T1     ->     DETECTED BY SURICATA
-- nmap -Pn -sS -A -T0     ->     DETECTED BY SURICATA
-- nmap -Pn -sS -p 21,22,23,69,80,138,139,140 -T0     ->     DETECTED BY SURICATA
-- nmap -Pn -sS -p 21,22,23,69,80,138,139,140 -f -T0     ->     DETECTED BY SURICATA
+- nmap -sS -Pn -T1     ->     DETECTED BY SURICATA
+- nmap -sS -Pn -T1 -f     ->     DETECTED BY SURICATA
+- nmap -sT -Pn -T1     ->     DETECTED BY SURICATA
+- nmap -sT -T1 -f     ->     DETECTED BY SURICATA
+- nmap -sU -Pn -T1     ->     DETECTED BY SURICATA
+- nmap -sU -T1 -f     ->     DETECTED BY SURICATA
+- nmap -sS -Pn -p 20-140 -T1     ->     DETECTED BY SURICATA
+- nmap -sS -Pn -p 20-140 -T1 -f     ->     DETECTED BY SURICATA
+- nmap -sT -Pn -p 20-140 -T1     ->     DETECTED BY SURICATA
+- nmap -sT -p 20-140 -T1 -f     ->     DETECTED BY SURICATA
+- nmap -sU -Pn -p 20-140 -T1     ->     DETECTED BY SURICATA
+- nmap -sU -p 20-140 -T1 -f     ->     DETECTED BY SURICATA
+- nmap -sS -Pn -A -T0     ->     DETECTED BY SURICATA
+- nmap -sS -Pn -p 21,22,23,69,80,138,139,140 -T0     ->     DETECTED BY SURICATA
+- nmap -sS -Pn -p 21,22,23,69,80,138,139,140 -T0 -f     ->     DETECTED BY SURICATA
+- nmap -sU -T0 -f     ->     DETECTED BY SURICATA
 
-- nmap -Pn -sU -T0     ->     NOT DETECTED BY SURICATA
-- nmap -Pn -sU -f -T0     ->     NOT DETECTED BY SURICATA
+- nmap -sU -T0     ->     NOT DETECTED BY SURICATA
 
 # USAGE:
 
