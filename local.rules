@@ -4,7 +4,7 @@ alert tcp any any -> any any (msg:"POSSIBLE NMAP TCP (-sT,-sS)"; flow:stateless;
 alert udp any any -> any any (msg:"POSSIBLE NMAP UDP (-sU)"; flow:stateless; classtype:attempted-recon; sid:1000005; priority:5; rev:6; threshold:type threshold, track by_src, count 10, seconds 300; dsize:0;)
 alert ip any any -> any any (msg:"POSSIBLE NMAP FRAGM (-f)"; fragbits:M; threshold:type threshold, track by_src, count 1000, seconds 2700; classtype:attempted-recon; sid:1000006; rev:1;)
 
-# Nmap Detection with scan port ranges:
+# Nmap Detection with more specific and known scan port ranges:
 
 alert tcp any any -> any [20,21,22,23,25,80,88,110,135,137,138,139,161,389,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"POSSIBLE NMAP KNOWN TCP (-sT,-sS)"; flow:stateless; flags:S,12; dsize:<60; classtype:attempted-recon; sid:1000007; priority:5; rev:14; threshold:type threshold, track by_src, count 4, seconds 1200;)
 alert udp any any -> any [69, 161, 162, 389, 520, 1026, 1027, 1028, 1029, 12345, 11211, 27017] (msg:"POSSIBLE NMAP KNOWN UDP (-sU)"; flow:stateless; classtype:attempted-recon; sid:1000008; priority:5; rev:7; threshold:type limit, track by_src, count 4, seconds 1200;)
