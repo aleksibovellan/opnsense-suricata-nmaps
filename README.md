@@ -1,6 +1,6 @@
-# opnsense-suricata-nmaps
-OPNsense's Suricata IDS/IPS Detection Rules Against Nmap Scans by Aleksi Bovellan,
-v. 1.0 / June 5th 2023
+## opnsense-suricata-nmaps
+# OPNsense's Suricata IDS/IPS Detection Rules Against Nmap Scans
+v. 1.0 / June 5th 2023 by Aleksi Bovellan
 
 Because there weren't too many triggers against Nmap scans built-in OPNSense, or even in Suricata's ET Telemetry Pro ruleset, especially against different types of Nmap scans, I wrote a bundle of custom rules that react to even the slowest -T0 scans and fragmented ones too.
 
@@ -13,7 +13,7 @@ Because there weren't too many triggers against Nmap scans built-in OPNSense, or
 (If running both OPNSense/Suricata and CrowdSec, CrowdSec bans source IP addresses for Nmap scan speeds down to -T2, but not to -T1-T0. CrowdSec also ignores fragmented Nmap scans.)
 
 
-NMAP DETECTION EXAMPLES WITH:   Nmap 7.9+ / Kali Linux 2023+	  VS.   OPNsense 23.1+  /  Suricata 6.0+  /  CrowdSec 1.5+  /  FreeBSD 13.1+
+NMAP EXAMPLES USING:   Nmap 7.9+ / Kali Linux 2023+	  VS.   OPNsense 23.1+  /  Suricata 6.0+  /  CrowdSec 1.5+  /  FreeBSD 13.1+
 
 - nmap -Pn -sS -T1     ->     DETECTED BY SURICATA
 - nmap -Pn -sS -f -T1     ->     DETECTED BY SURICATA
@@ -33,7 +33,10 @@ NMAP DETECTION EXAMPLES WITH:   Nmap 7.9+ / Kali Linux 2023+	  VS.   OPNsense 23
 - nmap -Pn -sS -p 21,22,23,69,80,138,139,140 -T0     ->     DETECTED BY SURICATA
 - nmap -Pn -sS -p 21,22,23,69,80,138,139,140 -f -T0     ->     DETECTED BY SURICATA
 
+- nmap -Pn -sU -T0     ->     NOT DETECTED BY SURICATA
+- nmap -Pn -sU -f -T0     ->     NOT DETECTED BY SURICATA
+
 # USAGE:
 
-- Save the "local.rules" file, or write all the alerts in it into ->  /usr/local/etc/suricata/rules/local.rules
+- Save the "local.rules" file, or write all alerts in it into ->  /usr/local/etc/suricata/rules/local.rules
 - Reload OPNSense's Web GUI's "INTRUSION DETECTION" ‘RULES’ LIST + APPLY RULES
