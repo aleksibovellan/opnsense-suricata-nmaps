@@ -13,7 +13,7 @@ Because there weren't too many triggers against Nmap scans built-in OPNSense, or
 (If running both OPNSense/Suricata and CrowdSec, CrowdSec bans source IP addresses for Nmap scan speeds down to -T2, but not to -T1-T0. CrowdSec also ignores fragmented Nmap scans.)
 
 
-NMAP DETECTION EXAMPLES WITH:   Nmap 7.93 / Kali Linux 2023.2	  VS.   OPNsense 23.1.9-amd64  /  Suricata 6.0.12  /  CrowdSec 1.5.1  /  FreeBSD 13.1-RELEASE-p7
+NMAP DETECTION EXAMPLES WITH:   Nmap 7.9+ / Kali Linux 2023+	  VS.   OPNsense 23.1+  /  Suricata 6.0+  /  CrowdSec 1.5+  /  FreeBSD 13.1+
 
 - nmap -Pn -sS -T1     ->     DETECTED BY SURICATA
 - nmap -Pn -sS -f -T1     ->     DETECTED BY SURICATA
