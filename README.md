@@ -2,7 +2,7 @@
 # OPNsense's Suricata IDS/IPS Detection Rules Against Nmap Scans
 v. 1.0 / June 5th 2023 by Aleksi Bovellan
 
-Because there weren't too many triggers against Nmap scans built-in OPNSense, or even in Suricata's ET Telemetry Pro ruleset, especially against different types of Nmap scans, I wrote a bundle of custom rules that react to even the slowest -T0 scans and fragmented ones too.
+Because there weren't too many triggers against Nmap scans built in OPNSense, or even in Suricata's ET Telemetry Pro ruleset, especially against different types of Nmap scans, I wrote a bundle of custom rules that react to even the slowest -T0 scans and fragmented ones too.
 
 - 3 x Suricata rules to detect most Nmap scans WITHOUT port ranges. (Scan types include at least: -Pn, -sS, -sT, -sU, -A, -f)
 - 3 x Suricata rules to detect most Nmap scans WITH more specific, common, or known port targets or ranges. (Scan types include at least: -Pn, -sS, -sT, -sU, -A, -f)
