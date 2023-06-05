@@ -1,5 +1,5 @@
 # opnsense-suricata-nmaps
-Opnsense's Suricata IDS/IPS Detection Rules Against Nmap Scans by Aleksi Bovellan,
+OPNsense's Suricata IDS/IPS Detection Rules Against Nmap Scans by Aleksi Bovellan,
 v. 1.0 / June 5th 2023
 
 Because there weren't too many triggers against Nmap scans built-in OPNSense, or even in Suricata's ET Telemetry Pro ruleset, especially against different types of Nmap scans, I wrote a bundle of custom rules that react to even the slowest -T0 scans and fragmented ones too.
@@ -35,5 +35,5 @@ NMAP DETECTION EXAMPLES WITH:   Nmap 7.93 / Kali Linux 2023.2	  VS.   OPNsense 2
 
 # USAGE:
 
-- SAVE THE ALERT RULES FILE, OR WRITE THE ALERT RULES INTO ->  /usr/local/etc/suricata/rules/local.rules
-- RELOAD OPNSENSE WEB GUI'S "INTRUSION DETECTION" ‘RULES’ LIST + APPLY RULES
+- Save the "local.rules" file, or write all the alerts in it into ->  /usr/local/etc/suricata/rules/local.rules
+- Reload OPNSense's Web GUI's "INTRUSION DETECTION" ‘RULES’ LIST + APPLY RULES
