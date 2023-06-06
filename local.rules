@@ -1,25 +1,36 @@
-# Nmap Detections without port ranges - the basic Nmap scans are least 1000 first ports:
+# Nmap Detection - down to scan speeds of -T1
 
-alert tcp any any -> any any (msg:"POSSIBLE NMAP TCP (-sT,-sS)"; flow:stateless; flags:S,12; reference:arachnids,198; classtype:attempted-recon; sid:1000004; priority:5; rev:9; threshold:type threshold, track by_src, count 1000, seconds 2700;)
-alert udp any any -> any any (msg:"POSSIBLE NMAP UDP (-sU)"; flow:stateless; classtype:attempted-recon; sid:1000005; priority:5; rev:6; threshold:type threshold, track by_src, count 10, seconds 300; dsize:0;)
-alert ip any any -> any any (msg:"POSSIBLE NMAP FRAGM (-f)"; fragbits:M; threshold:type threshold, track by_src, count 1000, seconds 2700; classtype:attempted-recon; sid:1000006; rev:1;)
+# Nmap -sS scans:
 
-# Nmap Detections with more specific and known port ranges - tuned for slower Nmap scans:
+alert tcp any any -> any [21,22,23,25,80,88,110,135,137,138,139,161,389,443,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"POSSB SCAN NMAP KNOWN TCP (type -sS)"; flow:stateless; flags:S; window:1024; tcp.mss:1460; threshold:type threshold, track by_src, count 7, seconds 180; classtype:attempted-recon; sid:1000001; priority:2; rev:2;)
+alert tcp any any -> any ![21,22,23,25,80,88,110,135,137,138,139,161,389,443,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"POSSB SCAN NMAP UNCOMMON TCP (type -sS)"; flow:stateless; flags:S; window:1024; tcp.mss:1460; threshold:type threshold, track by_src, count 7, seconds 180; classtype:attempted-recon; sid:1000002; priority:2; rev:2;)
 
-alert tcp any any -> any [20,21,22,23,25,80,88,110,135,137,138,139,161,389,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"POSSIBLE NMAP KNOWN TCP (-sT,-sS)"; flow:stateless; flags:S,12; dsize:<60; classtype:attempted-recon; sid:1000007; priority:5; rev:14; threshold:type threshold, track by_src, count 10, seconds 30;)
-alert udp any any -> any [69,161,162,389,520,1026,1027,1028,1029,12345,11211,27017] (msg:"POSSIBLE NMAP KNOWN UDP (-sU)"; flow:stateless; classtype:attempted-recon; sid:1000008; priority:5; rev:7; threshold:type limit, track by_src, count 20, seconds 1200;)
-alert ip any any -> any any (msg:"POSSIBLE NMAP KNOWN FRAGM (-f)"; fragbits:M+D; threshold:type limit, track by_src, count 20, seconds 1200; classtype:attempted-recon; sid:1000009; rev:6;)
+# Nmap -sT scans:
 
-# Metasploit / Meterpreter / Netcat commonly associated port 4444 connection warnings:
+alert tcp any any -> any [21,22,23,25,80,88,110,135,137,138,139,161,389,443,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"POSSB SCAN NMAP KNOWN TCP (type -sT)"; flow:stateless; flags:S; window:64240; tcp.mss:1460; threshold:type threshold, track by_src, count 7, seconds 180; classtype:attempted-recon; sid:1000003; priority:2; rev:4;)
+alert tcp any any -> any ![21,22,23,25,80,88,110,135,137,138,139,161,389,443,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"POSSB SCAN NMAP UNCOMMON TCP (type -sT)"; flow:stateless; flags:S; window:64240; tcp.mss:1460; threshold:type threshold, track by_src, count 7, seconds 180; classtype:attempted-recon; sid:1000004; priority:2; rev:4;)
+
+# Nmap -sU and -f scans for more known ports:
+
+alert udp any any -> any [53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1434,1900,11211,12345,27017] (msg:"POSSB SCAN NMAP KNOWN UDP (type -sU)"; flow:stateless; classtype:attempted-recon; sid:1000005; priority:2; rev:7; threshold:type limit, track by_src, count 10, seconds 300; dsize:0;)
+alert ip any any -> any any (msg:"POSSB SCAN NMAP KNOWN FRAGM (type -f)"; fragbits:M+D; threshold:type limit, track by_src, count 20, seconds 1200; classtype:attempted-recon; sid:1000006; priority:2; rev:6;)
+
+# Nmap -sU and -f scans for all other ports:
+
+alert udp any any -> any ![53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1434,1900,11211,12345,27017] (msg:"POSSB SCAN NMAP UNCOMMON UDP (type -sU)"; flow:stateless; classtype:attempted-recon; sid:1000007; priority:2; rev:6; threshold:type threshold, track by_src, count 10, seconds 300; dsize:0;)
+alert ip any any -> any any (msg:"POSSB SCAN NMAP UNCOMMON FRAGM (type -f)"; fragbits:M; threshold:type threshold, track by_src, count 20, seconds 1200; classtype:attempted-recon; sid:1000008; priority:2; rev:1;)
+
+
+# MetaSploit / Meterpreter / NetCat associated port 4444 connection attempts:
 
 # TCP source port: 4444
-alert tcp any 4444 -> any any (msg:"POSSIBLE METASPLOIT REVERSE SHELL OR TCP SCAN"; classtype:trojan-activity; sid:1000010; rev:1;)
+alert tcp any 4444 -> any any (msg:"POSSB SCAN M-SPLOIT R.SHELL TCP"; classtype:trojan-activity; sid:1000009; priority:1; rev:1;)
 
 # UDP source port: 4444
-alert udp any 4444 -> any any (msg:"POSSIBLE METASPLOIT REVERSE SHELL OR UDP SCAN"; classtype:trojan-activity; sid:1000011; rev:1;)
+alert udp any 4444 -> any any (msg:"POSSB SCAN M-SPLOIT R.SHELL UDP"; classtype:trojan-activity; sid:1000010; priority:1; rev:1;)
 
 # TCP destination port: 4444
-alert tcp any any -> any 4444 (msg:"POSSIBLE METASPLOIT BIND SHELL OR TCP SCAN"; classtype:trojan-activity; sid:1000012; rev:2;)
+alert tcp any any -> any 4444 (msg:"POSSB SCAN M-SPLOIT B.SHELL TCP"; classtype:trojan-activity; sid:1000011; priority:1; rev:2;)
 
 # UDP destination port: 4444
-alert udp any any -> any 4444 (msg:"POSSIBLE METASPLOIT BIND SHELL OR UDP SCAN"; classtype:trojan-activity; sid:1000013; rev:2;)
+alert udp any any -> any 4444 (msg:"POSSB SCAN M-SPLOIT B.SHELL UDP"; classtype:trojan-activity; sid:1000012; priority:1; rev:2;)
