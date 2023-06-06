@@ -19,7 +19,7 @@ Included:
 - nmap -sU -Pn -T1    ->    DETECTED BY SURICATA
 - nmap -sS -Pn -T1 -f    ->    DETECTED BY SURICATA
 - nmap -sU -T1 -f    ->    DETECTED BY SURICATA
-- nmap -T0 scan types    ->    NOT DETECTED BY SURICATA (TOO SLOW PACKET RATES AT -T0, 1 PACKET / 15 MINUTES)
+- nmap -T0 scan types    ->    NOT DETECTED BY SURICATA (TOO SLOW PACKET RATES AT -T0, 1 PACKET / 5 MINUTES)
 
 # USAGE:
 
