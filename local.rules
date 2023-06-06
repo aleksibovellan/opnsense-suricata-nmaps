@@ -1,4 +1,8 @@
-# Nmap Detection - down to scan speeds of -T1
+## opnsense-suricata-nmaps
+# OPNsense's Suricata IDS/IPS Detection Rules Against Nmap Scans
+v. 1.3 / June 6th 2023 by Aleksi Bovellan
+
+# Nmap Detections between speeds of -T5-T1
 
 # Nmap -sS scans:
 
@@ -21,7 +25,7 @@ alert udp any any -> any ![53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1
 alert ip any any -> any any (msg:"POSSB SCAN NMAP UNCOMMON FRAGM (type -f)"; fragbits:M; threshold:type threshold, track by_src, count 20, seconds 1200; classtype:attempted-recon; sid:1000008; priority:2; rev:1;)
 
 
-# MetaSploit / Meterpreter / NetCat associated port 4444 connection attempts:
+# MetaSploit / Meterpreter / NetCat associated port 4444, any connection attempts:
 
 # TCP source port: 4444
 alert tcp any 4444 -> any any (msg:"POSSB SCAN M-SPLOIT R.SHELL TCP"; classtype:trojan-activity; sid:1000009; priority:1; rev:1;)
