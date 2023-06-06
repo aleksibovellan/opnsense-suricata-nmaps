@@ -14,13 +14,12 @@ Included:
 
 # STEALTHY NMAP EXAMPLES USING:   Nmap 7.9+ / Kali Linux 2023+	  VS.   OPNsense 23.1+  /  Suricata 6.0+  /  CrowdSec 1.5+  /  FreeBSD 13.1+
 
-nmap -sS -Pn -T1    ->    DETECTED BY SURICATA
-nmap -sT -Pn -T1    ->    DETECTED BY SURICATA
-nmap -sU -Pn -T1    ->    DETECTED BY SURICATA
-nmap -sS -Pn -T1 -f    ->    DETECTED BY SURICATA
-nmap -sU -T1 -f    ->    DETECTED BY SURICATA
-
-nmap -T0 types    ->    NOT DETECTED BY SURICATA (TOO SLOW PACKET RATES, 1 PACKET / 15 MINUTES)
+- nmap -sS -Pn -T1    ->    DETECTED BY SURICATA
+- nmap -sT -Pn -T1    ->    DETECTED BY SURICATA
+- nmap -sU -Pn -T1    ->    DETECTED BY SURICATA
+- nmap -sS -Pn -T1 -f    ->    DETECTED BY SURICATA
+- nmap -sU -T1 -f    ->    DETECTED BY SURICATA
+- nmap -T0 scan types    ->    NOT DETECTED BY SURICATA (TOO SLOW PACKET RATES AT -T0, 1 PACKET / 15 MINUTES)
 
 # USAGE:
 
