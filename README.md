@@ -31,8 +31,8 @@ Detecting the slowest Nmap -T0 scans - especially the UDP version - can take tim
 
 ## USAGE:
 
-- Save the "local.rules" file, or write all alerts in it, into Suricata's default location -> /usr/local/etc/suricata/rules/local.rules
-- If a previous custom rules file existed, check for resulting duplicate rule sid numbers after copy-pasting these rules
+- Save this "local.rules" file, or write all alerts in it, into Suricata's custom rule file -> /usr/local/etc/suricata/rules/local.rules
+- If a previous "local.rules" file existed, check for resulting duplicate rule sid numbers after copy-pasting these rules into it
 - Reload OPNSense's Web GUI's "INTRUSION DETECTION" ‘RULES’ LIST
 - APPLY Rules
 
