@@ -15,7 +15,7 @@ Detecting the slowest Nmap -T0 scans - especially the UDP version - can take tim
 
 (If running both OPNSense/Suricata and CrowdSec at the same time, CrowdSec bans source IP addresses detected running Nmap scan speeds down to -T2, but not to -T1-T0. You can always whitelist your own attacking IP address in CrowdSec for testing purposes. CrowdSec also ignores fragmented Nmap scans.)
 
-## STEALTHY NMAP EXAMPLES USING:   Nmap 7.9+ in Kali Linux 2023+	VS. OPNsense 23.1+, Suricata 6.0+, CrowdSec 1.5+, FreeBSD 13.1+
+## SOME NMAP EXAMPLES USING:   Nmap 7.9+ in Kali Linux 2023+	VS. OPNsense 23.1+, Suricata 6.0+, CrowdSec 1.5+, FreeBSD 13.1+
 
 - nmap -sS -Pn -T0    ->    DETECTED BY SURICATA
 - nmap -sT -Pn -T0    ->    DETECTED BY SURICATA
@@ -27,6 +27,7 @@ Detecting the slowest Nmap -T0 scans - especially the UDP version - can take tim
 - nmap -sU -Pn -T1    ->    DETECTED BY SURICATA
 - nmap -sS -Pn -T1 -f    ->    DETECTED BY SURICATA
 - nmap -sU -T1 -f    ->    DETECTED BY SURICATA
+- nmap -sS -Pn -T4 -A    ->    DETECTED BY SURICATA
 
 ## USAGE:
 
