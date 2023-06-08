@@ -9,16 +9,16 @@ Included:
 - Suricata rules to detect most Nmap scans WITH more specific, common, or known port targets or ranges. (Scan types include at least: -sS, -sT, -sU, -Pn, -f)
 - Suricata rules against any connection attempts to and from TCP/UDP port 4444 (MetaSploit / MeterPreter / NetCat / Known Trojan)
 
-These Suricata rules work by looking for specific Nmap packet window sizes, other packet specifications, ports and known Nmap timing intervals. The rules react to Nmap scan speeds between -T5-T0, and to fragmented Nmap scans too, but without creating too many false positive alerts, at least in a personal / home / SoHo network setup. Expect to see some alerts triggered from WAN interface now and then as a result of everyday scanning and probing. Also, may react to some legit self-made connection attempts, which resemble Nmap packets and are just triggered too fast in a short time window.
+These Suricata rules work by looking for specific Nmap packet window sizes, other packet specifications, ports and known Nmap timing intervals. These rules react to Nmap scan speeds between -T5-T0, and to fragmented Nmap scans too, but without creating too many false positive alerts, at least in a personal / home / SoHo network setup.
 
-Detecting the slowest Nmap -T0 scans - especially the UDP version - can take time, a LOT of time, since the packet rates get so slow. Also, for the Nmap -T0 detection rules to work without triggering too may false positives, their port ranges had to be limited to a list of known ports only. But at -T1 or faster Nmap scan speeds, the detection rules target all ports, and also offer some known port identification as an added bonus for better logging purposes by including the word "KNOWN" in those rule's descriptions.
+Detecting the slowest Nmap -T0 scans - especially -sU (UDP) OR -sT (TCP SYN ACK) versions - can take time, a LOT of time, since their packet rates get so slow and there is usually existing legit traffic at the same time. For the Nmap -T0 detection rules to work at all without triggering too may false positives, their port ranges had to be limited to a list of known ports only. However, Nmap -T0 speed scans using -sS or -f options instead do get detected better than -sT types. At -T1 or faster Nmap scan speeds the detection rules start to detect all scan types much better and the rules also listen to all ports. These rules also offer some known port identification as an added bonus for better logging purposes by including the word "KNOWN" for known port detections.
 
 (If running both OPNSense/Suricata and CrowdSec at the same time, CrowdSec bans source IP addresses detected running Nmap scan speeds down to -T2, but not to -T1-T0. You can always whitelist your own attacking IP address in CrowdSec for testing purposes. CrowdSec also ignores fragmented Nmap scans.)
 
 ## SOME NMAP EXAMPLES USING:   Nmap 7.9+ in Kali Linux 2023+	VS. OPNsense 23.1+, Suricata 6.0+, CrowdSec 1.5+, FreeBSD 13.1+
 
 - nmap -sS -Pn -T0    ->    DETECTED BY SURICATA
-- nmap -sT -Pn -T0    ->    DETECTED BY SURICATA
+- nmap -sT -Pn -T0    ->    MIGHT BE DETECTED BY SURICATA, BUT THIS WOULD TAKE A VERY LONG TIME
 - nmap -sU -Pn -T0    ->    MIGHT BE DETECTED BY SURICATA, BUT THIS WOULD TAKE A VERY LONG TIME
 - nmap -sS -Pn -T0 -f    ->    DETECTED BY SURICATA
 - nmap -sU -T0 -f    ->    DETECTED BY SURICATA
@@ -38,7 +38,7 @@ Detecting the slowest Nmap -T0 scans - especially the UDP version - can take tim
 
 ## KNOWN ISSUES
 
-After loading and applying these detection rules in OPNSense's Suricata, the following types of warnings may appear in Suricata's log, but will cause no problems:
-
-[100770] <Warning> -- [ERRCODE: SC_WARN_POOR_RULE(276)] - rule 1000011: SYN-only to port(s) 0:20 w/o direction specified, disabling for toclient direction
+- After loading and applying these detection rules in OPNSense's Suricata, the following types of warnings may appear in Suricata's log, but will cause no problems: [100770] <Warning> -- [ERRCODE: SC_WARN_POOR_RULE(276)] - rule 1000011: SYN-only to port(s) 0:20 w/o direction specified, disabling for toclient direction
+- Expect to see some alerts triggered from WAN interface now and then as a result of everyday scanning and probing
+- These rules may react to some legit self-made connection attempts, which resemble Nmap packets, and are just triggered too fast in a short time window
 
