@@ -5,6 +5,7 @@
 
 # For Nmap Detections between scan speeds of -T5-T0.
 
+
 # Nmap -sS scans at -T0, this rule has a limited port range to avoid constant alerts from generic WAN scanners: 
 
 alert tcp any any -> any [21,22,23,25,80,88,110,135,137,138,139,161,389,443,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"SUSP PORT PROBE KNOWN TCP (type -sS)"; flow:stateless; flags:S; window:1024; tcp.mss:1460; threshold:type threshold, track by_src, count 4, seconds 1100; classtype:attempted-recon; sid:1000001; priority:2; rev:2;)
