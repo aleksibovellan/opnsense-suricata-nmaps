@@ -3,9 +3,7 @@
 # v. 1.4.1 / June 8th 2023 by Aleksi Bovellan
 # https://github.com/aleksibovellan/opnsense-suricata-nmaps
 
-# For detecting Nmap scans between speeds: -T5-T0.
-
--------------------------------------------------
+# For Nmap Detections between scan speeds of -T5-T0.
 
 # Nmap -sS scans at -T0, this rule has a limited port range to avoid constant alerts from generic WAN scanners: 
 
@@ -14,8 +12,8 @@ alert tcp any any -> any [21,22,23,25,80,88,110,135,137,138,139,161,389,443,445,
 
 # Nmap -sT scans at -T0, this rule has a limited port range to avoid constant alerts from generic WAN scanners: 
 
-alert tcp any any -> any [21,22,23,25,88,110,135,137,138,139,161,389,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"SUSP PORT PROBE KNOWN TCP (type -sT)"; flow:stateless; flags:S; window:64240; tcp.mss:1460; threshold:type threshold, track by_src, count 4, seconds 1100; classtype:attempted-recon; sid:1000003; priority:2; rev:2;)
-alert tcp any any -> any [21,22,23,25,88,110,135,137,138,139,161,389,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"POSSBL SCAN NMAP KNOWN TCP (type -sT)"; flow:stateless; flags:S; window:64240; tcp.mss:1460; threshold:type threshold, track by_src, count 3, seconds 1210; classtype:attempted-recon; sid:1000004; priority:2; rev:2;)
+alert tcp any any -> any [21,23,25,88,110,135,137,138,139,161,389,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"SUSP PORT PROBE KNOWN TCP (type -sT)"; flow:stateless; flags:S; window:64240; tcp.mss:1460; threshold:type threshold, track by_src, count 4, seconds 1100; classtype:attempted-recon; sid:1000003; priority:2; rev:2;)
+alert tcp any any -> any [21,23,25,88,110,135,137,138,139,161,389,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"POSSBL SCAN NMAP KNOWN TCP (type -sT)"; flow:stateless; flags:S; window:64240; tcp.mss:1460; threshold:type threshold, track by_src, count 3, seconds 1210; classtype:attempted-recon; sid:1000004; priority:2; rev:2;)
 
 # Nmap -sU scans at -T0, this rule has a limited port range to avoid constant alerts from generic WAN scanners:
 
