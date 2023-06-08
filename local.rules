@@ -12,7 +12,7 @@ alert tcp any any -> any [21,22,23,25,80,88,110,135,137,138,139,161,389,443,445,
 alert tcp any any -> any [21,22,23,25,80,88,110,135,137,138,139,161,389,443,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"POSSBL SCAN NMAP KNOWN TCP (type -sS)"; flow:stateless; flags:S; window:1024; tcp.mss:1460; threshold:type threshold, track by_src, count 3, seconds 1210; classtype:attempted-recon; sid:1000002; priority:2; rev:2;)
 
 
-# Nmap -sT scans at -T0, these two rule were DISABLED due to false positives, but -sT -T0 scans can still be detected by other rules:
+# Nmap -sT scans at -T0, these two rule were DISABLED due to false positives from legit TCP SYN ACK traffic, but -sT -T0 scans can still be detected by other rules:
 
 # DISABLED rule due to some false positives: alert tcp any any -> any [21,23,25,88,110,135,137,138,139,161,389,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"SUSP PORT PROBE KNOWN TCP (type -sT)"; flow:stateless; flags:S; window:64240; tcp.mss:1460; threshold:type threshold, track by_src, count 4, seconds 1100; classtype:attempted-recon; sid:1000003; priority:2; rev:2;)
 # DISABLED rule due to some false positives: alert tcp any any -> any [21,23,25,88,110,135,137,138,139,161,389,445,465,514,587,636,995,1025,1026,1027,1028,1029,1433,1720,3306,3389,5900,8443,11211,27017] (msg:"POSSBL SCAN NMAP KNOWN TCP (type -sT)"; flow:stateless; flags:S; window:64240; tcp.mss:1460; threshold:type threshold, track by_src, count 3, seconds 1210; classtype:attempted-recon; sid:1000004; priority:2; rev:2;)
