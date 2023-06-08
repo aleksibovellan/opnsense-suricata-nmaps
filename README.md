@@ -1,5 +1,5 @@
 # OPNsense's Suricata IDS/IPS Detection Rules Against Nmap Scans
-## v. 1.4.1 / June 8th 2023 by Aleksi Bovellan
+## v. 1.4.2 / June 8th 2023 by Aleksi Bovellan
 
 Because there weren't many working alert rules against Nmap scans built in OPNSense - or even in Suricata's ET Telemetry Pro ruleset - especially against slower Nmap scan speeds like the -T0, I wrote a bundle of my own Suricata rules to try to catch them all.
 
