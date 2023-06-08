@@ -7,7 +7,7 @@ Included:
 
 - Suricata rules to detect most Nmap scans WITHOUT port ranges. (Scan types include at least: -sS, -sT, -sU, -Pn, -f)
 - Suricata rules to detect most Nmap scans WITH more specific, common, or known port targets or ranges. (Scan types include at least: -sS, -sT, -sU, -Pn, -f)
-- Suricata rules against any connection attempts to and from TCP/UDP port 4444 (MetaSploit / MeterPreter / NetCat)
+- Suricata rules against any connection attempts to and from TCP/UDP port 4444 (MetaSploit / MeterPreter / NetCat / Known Trojan)
 
 These Suricata rules work by looking for specific Nmap packet window sizes, other packet specifications, ports and known Nmap timing intervals. The rules react to Nmap scan speeds between -T5-T0, and to fragmented Nmap scans too, but without creating too many false positive alerts, at least in a personal / home / SoHo network setup. Expect to see some alerts triggered from WAN interface now and then as a result of everyday scanning and probing. Also, may react to some legit self-made connection attempts, which resemble Nmap packets and are just triggered too fast in a short time window.
 
