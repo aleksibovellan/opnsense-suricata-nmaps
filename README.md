@@ -38,7 +38,7 @@ Detecting the slowest Nmap -T0 scans - especially the UDP version - can take tim
 
 ## KNOWN ISSUES
 
-After loading and applying these detection rules in OPNSense's Suricata, following types of warnings may appear in Suricata's log, but will cause no problems:
+After loading and applying these detection rules in OPNSense's Suricata, the following types of warnings may appear in Suricata's log, but will cause no problems:
 
 [100770] <Warning> -- [ERRCODE: SC_WARN_POOR_RULE(276)] - rule 1000011: SYN-only to port(s) 0:20 w/o direction specified, disabling for toclient direction
 
