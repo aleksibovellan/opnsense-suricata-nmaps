@@ -1,5 +1,5 @@
 # opnsense-suricata-nmaps
-# OPNsense's Suricata IDS/IPS Detection Rules Against Nmap Scans
+# OPNsense's Suricata IDS/IPS Nmap Detection Rules
 # v. 1.4.2 / June 8th 2023 by Aleksi Bovellan
 # https://github.com/aleksibovellan/opnsense-suricata-nmaps
 
