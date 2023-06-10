@@ -39,5 +39,5 @@ Detecting the slowest Nmap -T0 scans - especially -sU (UDP) or -sT (TCP SYN ACK)
 ## KNOWN ISSUES
 
 - After loading and applying these detection rules in OPNSense's Suricata, the following types of warnings may appear in Suricata's log, but will cause no problems: [100770] <Warning> -- [ERRCODE: SC_WARN_POOR_RULE(276)] - rule 1000011: SYN-only to port(s) 0:20 w/o direction specified, disabling for toclient direction
-- Expect to see some detection alerts triggered from WAN interface now and then as a result of everyday scanning and probing
 - These rules may react to some legit self-made connection attempts, which happen to resemble Nmap packets and are also sent in a too fast rate to be ignored safely
+- Expect to see some alerts triggered from WAN interface now and then as a result of everyday scanning and probing - legal and illegal. Run a "whois IP" command in your shell or equivalent to find out more about the scanner. Luckily, it's possible to request the removal of your IP address from some of those legit ones, for example: https://www.recyber.net/opt-out
