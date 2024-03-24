@@ -41,5 +41,7 @@ IMPORTANT: If a previous "local.rules" file exists, check for resulting duplicat
 ## KNOWN ISSUES
 
 - These rules may react to some legit self-made connection attempts too, which happen to resemble NMAP packets and/or are sent in a too rapid rate to be ignored safely.
+- Sometimes by lucky accident, the momentary ephemeral port the computer uses for a specific outbound connection just happens to be 4444, which then gets flagged by these rules for being possible malicious bind/reverse shell activity. However, there doesn't seem to be any better way to detect this notorious and common malware port of 4444 in the earliest possible stage, but by port number basis only for inbound and outbound traffic, so the rule is left as is.
 - After loading these rules, expect to see alerts triggered from WAN interface as a result of everyday scanning and probing - legal and illegal. Use "whois IP" and IP traces to find out more about the scanners.
+
 
