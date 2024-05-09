@@ -23,12 +23,12 @@ alert tcp any ![22,53,80,443,853,1194,8080,51820] -> any ![22,53,80,443,853,1194
 alert tcp any ![22,53,80,443,853,1194,8080,51820] -> any ![22,53,80,443,853,1194,8080,51820] (msg:"POSSBL PORT SCAN (NMAP -sA)"; flags:A; flow:stateless; window:1024; threshold:type threshold, track by_dst, count 20, seconds 70; classtype:attempted-recon; sid:1000004; priority:2; rev:5;)
 
 
-# FRAGMENTED SCAN -f (speeds T1-T5)
+# CHRISTMAS TREE SCAN -sX (speeds T1-T5)
 
 alert tcp any any -> any any (msg:"POSSBL PORT SCAN (NMAP -sX)"; flags:FPU; flow:to_server,stateless; threshold:type threshold, track by_src, count 3, seconds 120; classtype:attempted-recon; sid:1000005; rev:2;)
 
 
-# CHRISTMAS TREE SCAN -sX (speeds T1-T5)
+# FRAGMENTED SCAN -f (speeds T1-T5)
 
 alert ip any any -> any any (msg:"POSSBL SCAN FRAG (NMAP -f)"; fragbits:M+D; threshold:type limit, track by_src, count 3, seconds 1210; classtype:attempted-recon; sid:1000006; priority:2; rev:6;)
 
