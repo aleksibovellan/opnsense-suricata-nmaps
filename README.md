@@ -1,6 +1,6 @@
 # OPNsense's Suricata IDS/IPS NMAP Detection Rules
 ### UPDATED: VERSION 2.01 NOW DETECTS EVEN MORE NMAP SCAN TYPES: -sS, -sT, sA, -sX, -f and -sU
-#### (Latest update: May 9th 2024 by Aleksi Bovellan)
+#### (Latest update: May 10th 2024 by Aleksi Bovellan)
 
 Because there weren't many working detection alert rules against different types of NMAP port scans in OPNSense's Suricata IDS/IPS, or even in Suricata's ET Telemetry Pro ruleset (which can be activated for free at: https://shop.opnsense.com/product/etpro-telemetry/), especially against slower NMAP scan speeds like T1-T3, I wrote a bundle of my own Suricata detection rules to detect and log as many as possible between scan speeds of T1-T5.
 
