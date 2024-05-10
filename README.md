@@ -39,10 +39,11 @@ IMPORTANT: If a previous customized "local.rules" file exists in your Suricata (
 ## KNOWN ISSUES
 
 - These rules do not react to the slowest NMAP speed of T0, which is slower than death by the way, or to "sniping", as in scanning just one or a few custom ports using slower scan settings.
-- These rules might also detect other port scanners than NMAP, which happen to use the same or very similar kind of packets
+- These rules might also detect other port scanners than NMAP, which happen to use the same or very similar kind of packets.
 - After loading these rules, expect to see alerts triggered from WAN interface as the result of everyday scanning and probing, legal and illegal. Use "whois IP" and IP tracing websites to find out more about those scanners. (Many times they hide behind some VPNs or cloud servers, though)
 - These rules may very seldom react to some legit self-made connection attempts, which just happen to resemble NMAP packets, and/or are sent in a too rapid rate to be ignored safely.
 - Some of the new detection rules concerning more regular types of network traffic, like the SYN-ACK 3-WAY scan (-sT) and ACK scan (-sA), had to be throttled back a bit in their speeds, up to T2-T3, to avoid unnecessary false alarms from legit traffic. And even regardless of that, some of the very most common ports still took hits during stress-testing, so a few of those most common ports just had to be excluded all together to make the rules work in any sensible way.
+- Sometimes by lucky accident, your device chooses its ephemeral source port to be 4444, which leads to the destination service to respond with that port being the destination port number, and that connection might get flagged as "possible shell metasploit" connection - which it is note. For that reason, some of the most common ports have been excluded from that rule. Just something to be aware of.
 
 ## CROWDSEC COMPATIBILITY
 
