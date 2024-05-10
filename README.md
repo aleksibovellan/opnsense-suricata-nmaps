@@ -8,7 +8,7 @@ These rules have been tested in a SoHo / home environment without problems. Late
 
 ![screenshot](suricata.png)
 
-## INCLUDED IN VERSION 2.0
+## INCLUDED IN VERSION 2.01
 
 Detection rules against the following commands:
 
@@ -27,18 +27,19 @@ These Suricata rules work by looking for specific NMAP packet window sizes, othe
 
 The readability in Suricata's detection log have now also been improved for these rules, so it's more easy to instantly see the occured NMAP scan type. (See screenshot).
 
-## USAGE
+## USAGE (EASY!)
 
 IMPORTANT: If a previous customized "local.rules" file exists in your Suricata (/usr/local/etc/suricata/rules/local.rules), check for duplicate rule "sid" numbers in the existing one and this one, and modify them as you wish, so that there will be no duplicate rule numbers after this one.
 
 - Save this "local.rules" file - or copy all rules in it - into Suricata's custom rule file -> /usr/local/etc/suricata/rules/local.rules
-- Just in case, copy it over the OPNsense's automatically created one too at -> /usr/local/etc/suricata/opnsense.rules/local.rules
-- Reload Suricata, for example from OPNsense's web GUI's using the sidebar: "SERVICES" -> "INTRUSION DETECTION" -> "ADMINISTRATION" -> "RULES" tab -> click the "Apply" button in the bottom of the page
+- Just in case, copy that edited file also over the OPNsense's automatically created one at -> /usr/local/etc/suricata/opnsense.rules/local.rules
+- Reload Suricata rules, for example from OPNsense's web GUI's using the sidebar: "SERVICES" -> "INTRUSION DETECTION" -> "ADMINISTRATION" -> "RULES" tab -> click the "Apply" button in the bottom of the page
 - OPTIONAL: If you want, you can reload the whole Suricata service too just in case
 
 ## KNOWN ISSUES
 
 - These rules do not react to the slowest NMAP speed of T0, which is slower than death by the way, or to "sniping", as in scanning just one or a few custom ports using slower scan settings.
+- These rules might also detect other port scanners than NMAP, which happen to use the same or very similar kind of packets
 - After loading these rules, expect to see alerts triggered from WAN interface as the result of everyday scanning and probing, legal and illegal. Use "whois IP" and IP tracing websites to find out more about those scanners. (Many times they hide behind some VPNs or cloud servers, though)
 - These rules may very seldom react to some legit self-made connection attempts, which just happen to resemble NMAP packets, and/or are sent in a too rapid rate to be ignored safely.
 - Some of the new detection rules concerning more regular types of network traffic, like the SYN-ACK 3-WAY scan (-sT) and ACK scan (-sA), had to be throttled back a bit in their speeds, up to T2-T3, to avoid unnecessary false alarms from legit traffic. And even regardless of that, some of the very most common ports still took hits during stress-testing, so a few of those most common ports just had to be excluded all together to make the rules work in any sensible way.
