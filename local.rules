@@ -1,5 +1,5 @@
 # OPNsense's Suricata IDS/IPS Detection Rules Against NMAP Scans
-# v. 2.01 / May 10th 2024 by Aleksi Bovellan
+# v. 2.02 / May 24th 2024 by Aleksi Bovellan
 # https://github.com/aleksibovellan/opnsense-suricata-nmaps
 
 
@@ -8,42 +8,42 @@
 
 # SYN SCAN -sS (speeds T1-T5)
 
-alert tcp any any -> any [21,22,23,25,53,80,88,110,135,137,138,139,161,389,443,445,465,514,587,636,853,995,1433,1720,1194,3306,3389,8443,8080,11211,27017,51820] (msg:"POSSBL PORT SCAN (NMAP -sS)"; flow:to_server,stateless; flags:S; window:1024; tcp.mss:1460; threshold:type threshold, track by_src, count 20, seconds 70; classtype:attempted-recon; sid:1000001; priority:2; rev:1;)
+alert tcp any any -> any [21,22,23,25,53,80,88,110,135,137,138,139,161,389,443,445,465,514,587,636,853,995,1433,1720,1194,3306,3389,8443,8080,11211,27017,51820] (msg:"POSSBL PORT SCAN (NMAP -sS)"; flow:to_server,stateless; flags:S; window:1024; tcp.mss:1460; threshold:type threshold, track by_src, count 20, seconds 70; classtype:attempted-recon; sid:3400001; priority:2; rev:1;)
 
-alert tcp any any -> any ![21,22,23,25,53,80,88,110,135,137,138,139,161,389,443,445,465,514,587,636,853,995,1433,1720,1194,3306,3389,8443,8080,11211,27017,51820] (msg:"POSSBL PORT SCAN (NMAP -sS)"; flow:to_server,stateless; flags:S; window:1024; tcp.mss:1460; threshold:type threshold, track by_src, count 7, seconds 135; classtype:attempted-recon; sid:1000002; priority:2; rev:2;)
+alert tcp any any -> any ![21,22,23,25,53,80,88,110,135,137,138,139,161,389,443,445,465,514,587,636,853,995,1433,1720,1194,3306,3389,8443,8080,11211,27017,51820] (msg:"POSSBL PORT SCAN (NMAP -sS)"; flow:to_server,stateless; flags:S; window:1024; tcp.mss:1460; threshold:type threshold, track by_src, count 7, seconds 135; classtype:attempted-recon; sid:3400002; priority:2; rev:2;)
 
 
 # SYN-ACK 3-WAY SCAN -sT (speeds T3-T5)
 
-alert tcp any ![22,53,80,443,853,1194,8080,51820] -> any ![22,53,80,443,853,1194,8080,51820] (msg:"POSSBL PORT SCAN (NMAP -sT)"; flow:to_server; flags:S; threshold:type threshold, track by_src, count 350, seconds 60; classtype:attempted-recon; sid:1000003; rev:3;)
+alert tcp any ![22,53,80,88,443,853,1194,8080,51820] -> any ![22,53,80,443,853,1194,8080,51820] (msg:"POSSBL PORT SCAN (NMAP -sT)"; flow:to_server; flags:S; threshold:type threshold, track by_src, count 350, seconds 60; classtype:attempted-recon; sid:3400003; rev:3;)
 
 
 # ACK SCAN -sA (speeds T2-T5)
 
-alert tcp any ![22,53,80,443,853,1194,8080,51820] -> any ![22,53,80,443,853,1194,8080,51820] (msg:"POSSBL PORT SCAN (NMAP -sA)"; flags:A; flow:stateless; window:1024; threshold:type threshold, track by_dst, count 20, seconds 70; classtype:attempted-recon; sid:1000004; priority:2; rev:5;)
+alert tcp any ![22,53,80,88,443,853,1194,8080,51820] -> any ![22,53,80,443,853,1194,8080,51820] (msg:"POSSBL PORT SCAN (NMAP -sA)"; flags:A; flow:stateless; window:1024; threshold:type threshold, track by_dst, count 20, seconds 70; classtype:attempted-recon; sid:3400004; priority:2; rev:5;)
 
 
 # CHRISTMAS TREE SCAN -sX (speeds T1-T5)
 
-alert tcp any any -> any any (msg:"POSSBL PORT SCAN (NMAP -sX)"; flags:FPU; flow:to_server,stateless; threshold:type threshold, track by_src, count 3, seconds 120; classtype:attempted-recon; sid:1000005; rev:2;)
+alert tcp any any -> any any (msg:"POSSBL PORT SCAN (NMAP -sX)"; flags:FPU; flow:to_server,stateless; threshold:type threshold, track by_src, count 3, seconds 120; classtype:attempted-recon; sid:3400005; rev:2;)
 
 
 # FRAGMENTED SCAN -f (speeds T1-T5)
 
-alert ip any any -> any any (msg:"POSSBL SCAN FRAG (NMAP -f)"; fragbits:M+D; threshold:type limit, track by_src, count 3, seconds 1210; classtype:attempted-recon; sid:1000006; priority:2; rev:6;)
+alert ip any any -> any any (msg:"POSSBL SCAN FRAG (NMAP -f)"; fragbits:M+D; threshold:type limit, track by_src, count 3, seconds 1210; classtype:attempted-recon; sid:3400006; priority:2; rev:6;)
 
 
 # UDP SCAN -sU (speeds T1-T5)
 
-alert udp any any -> any [53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1194,1434,1900,11211,12345,27017,51820] (msg:"POSSBL PORT SCAN (NMAP -sU)"; flow:to_server,stateless; classtype:attempted-recon; sid:1000007; priority:2; rev:6; threshold:type threshold, track by_src, count 20, seconds 70; dsize:0;)
+alert udp any any -> any [53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1194,1434,1900,11211,12345,27017,51820] (msg:"POSSBL PORT SCAN (NMAP -sU)"; flow:to_server,stateless; classtype:attempted-recon; sid:3400007; priority:2; rev:6; threshold:type threshold, track by_src, count 20, seconds 70; dsize:0;)
 
-alert udp any any -> any ![53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1194,1434,1900,11211,12345,27017,51820] (msg:"POSSBL PORT SCAN (NMAP -sU)"; flow:to_server,stateless; classtype:attempted-recon; sid:1000008; priority:2; rev:6; threshold:type threshold, track by_src, count 7, seconds 135; dsize:0;)
+alert udp any any -> any ![53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1194,1434,1900,11211,12345,27017,51820] (msg:"POSSBL PORT SCAN (NMAP -sU)"; flow:to_server,stateless; classtype:attempted-recon; sid:3400008; priority:2; rev:6; threshold:type threshold, track by_src, count 7, seconds 135; dsize:0;)
 
 
 # For all usages of destination port 4444:
 
 # TCP destination port: 4444
-alert tcp any ![21,22,23,53,80,443,853,1194,8080,51820] -> any 4444 (msg:"POSSBL SCAN SHELL M-SPLOIT TCP"; classtype:trojan-activity; sid:1000020; priority:1; rev:2;)
+alert tcp any ![21,22,23,25,53,80,88,110,143,443,445,465,587,853,1194,8080,51820] -> any 4444 (msg:"POSSBL SCAN SHELL M-SPLOIT TCP"; classtype:trojan-activity; sid:3400020; priority:1; rev:2;)
 
 # UDP destination port: 4444
-alert udp any ![53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1194,1434,1900,11211,12345,27017,51820] -> any 4444 (msg:"POSSBL SCAN SHELL M-SPLOIT UDP"; classtype:trojan-activity; sid:1000021; priority:1; rev:2;)
+alert udp any ![53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1194,1434,1900,11211,12345,27017,51820] -> any 4444 (msg:"POSSBL SCAN SHELL M-SPLOIT UDP"; classtype:trojan-activity; sid:3400021; priority:1; rev:2;)
