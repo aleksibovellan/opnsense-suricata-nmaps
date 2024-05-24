@@ -1,6 +1,6 @@
 # OPNsense's Suricata IDS/IPS NMAP Detection Rules
-### UPDATED: VERSION 2.01 NOW DETECTS EVEN MORE NMAP SCAN TYPES: -sS, -sT, sA, -sX, -f and -sU
-#### (Latest update: May 10th 2024 by Aleksi Bovellan)
+### UPDATED: VERSION 2.02 NOW DETECTS EVEN MORE NMAP SCAN TYPES: -sS, -sT, sA, -sX, -f and -sU
+#### (Latest update: May 24th 2024 by Aleksi Bovellan)
 
 Because there weren't many working detection alert rules against different types of NMAP port scans in OPNSense's Suricata IDS/IPS, or even in Suricata's ET Telemetry Pro ruleset (which can be activated for free at: https://shop.opnsense.com/product/etpro-telemetry/), especially against slower NMAP scan speeds like T1-T3, I wrote a bundle of my own Suricata detection rules to detect and log as many as possible between scan speeds of T1-T5.
 
@@ -8,7 +8,7 @@ These rules have been tested in a SoHo / home environment without problems. Late
 
 ![screenshot](suricata.png)
 
-## INCLUDED IN VERSION 2.01
+## INCLUDED IN VERSION 2.02
 
 Detection rules against the following commands:
 
@@ -18,7 +18,6 @@ Detection rules against the following commands:
 - nmap -sX (between speeds T1-T5)
 - nmap -f (between speeds T1-T5)
 - nmap -sU (between speeds T1-T5)
-  
 - Any usage of destination port 4444 (the most common shell and default MetaSploit port)
 
 ## GENERAL
@@ -43,7 +42,7 @@ IMPORTANT: If a previous customized "local.rules" file exists in your Suricata (
 - After loading these rules, expect to see alerts triggered from WAN interface as the result of everyday scanning and probing, legal and illegal. Use "whois IP" and IP tracing websites to find out more about those scanners. (Many times they hide behind some VPNs or cloud servers, though)
 - These rules may very seldom react to some legit self-made connection attempts, which just happen to resemble NMAP packets, and/or are sent in a too rapid rate to be ignored safely.
 - Sometimes by lucky accident, your device chooses its ephemeral source port to be port number 4444, which leads to the destination service responding to connect back to that port number as its destination, and that connection might get flagged as "possible shell metasploit" connection - which it is not. For that reason, some of the most common ports have been excluded from that rule. Just something to be aware of.
-- Some of these new (version 2.01) NMAP detection rules concerning more regular types of network traffic, like the SYN-ACK 3-WAY scan (-sT) and ACK scan (-sA), had to be throttled back a bit, up to T2-T3, to avoid unnecessary false alarms from legit traffic. And even regardless of that, some of the very most common ports still took hits during stress-testing, so a few of those most common ports just had to be excluded all together to make the rules work in any sensible way.
+- Some of these new (version 2.02) NMAP detection rules concerning more regular types of network traffic, like the SYN-ACK 3-WAY scan (-sT) and ACK scan (-sA), had to be throttled back a bit, up to T2-T3, to avoid unnecessary false alarms from legit traffic. And even regardless of that, some of the very most common ports still took hits during stress-testing, so a few of those most common ports just had to be excluded all together to make the rules work in any sensible way.
 
 ## CROWDSEC COMPATIBILITY
 
