@@ -15,12 +15,12 @@ alert tcp any any -> any ![21,22,23,25,53,80,88,110,135,137,138,139,161,389,443,
 
 # SYN-ACK 3-WAY SCAN -sT (speeds T3-T5)
 
-alert tcp any ![22,53,80,88,443,853,1194,8080,51820] -> any ![22,53,80,443,853,1194,8080,51820] (msg:"POSSBL PORT SCAN (NMAP -sT)"; flow:to_server; flags:S; threshold:type threshold, track by_src, count 350, seconds 60; classtype:attempted-recon; sid:3400003; rev:3;)
+alert tcp any ![22,53,80,88,443,853,1194,8080,51820] -> any ![22,53,80,88,443,853,1194,8080,51820] (msg:"POSSBL PORT SCAN (NMAP -sT)"; flow:to_server; flags:S; threshold:type threshold, track by_src, count 350, seconds 60; classtype:attempted-recon; sid:3400003; rev:3;)
 
 
 # ACK SCAN -sA (speeds T2-T5)
 
-alert tcp any ![22,53,80,88,443,853,1194,8080,51820] -> any ![22,53,80,443,853,1194,8080,51820] (msg:"POSSBL PORT SCAN (NMAP -sA)"; flags:A; flow:stateless; window:1024; threshold:type threshold, track by_dst, count 20, seconds 70; classtype:attempted-recon; sid:3400004; priority:2; rev:5;)
+alert tcp any ![22,53,80,88,443,853,1194,8080,51820] -> any ![22,53,80,88,443,853,1194,8080,51820] (msg:"POSSBL PORT SCAN (NMAP -sA)"; flags:A; flow:stateless; window:1024; threshold:type threshold, track by_dst, count 20, seconds 70; classtype:attempted-recon; sid:3400004; priority:2; rev:5;)
 
 
 # CHRISTMAS TREE SCAN -sX (speeds T1-T5)
